@@ -1,0 +1,54 @@
+import alpaca_trade_api as tradeapi
+import pandas as pd
+import time
+
+# API credentials
+API_KEY = 'PKV2UDDIHDNSTAQ6K592'
+API_SECRET = 'w5161bkyMBN5l3lNcxSFVdyicwCb0hUrtqcLksc2'
+BASE_URL = 'https://paper-api.alpaca.markets/v2'
+
+# Initialize Alpaca API
+api = tradeapi.REST(API_KEY, API_SECRET, BASE_URL, api_version='v2')
+
+# List of S&P 500 companies' symbols
+sp500_symbols = [
+    'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'TSLA', 'META', 'UNH', 'MA', 'V',  # Add more symbols as needed
+    # Complete the list with all S&P 500 symbols
+]
+
+def fetch_stock_data(symbol):
+    """Fetch data for a single stock symbol"""
+    try:
+        last_trade = api.get_last_trade(symbol)
+        current_price = last_trade.price
+        print(f"Current price of {symbol}: {current_price}")
+        return {
+            'Symbol': symbol,
+            'Price': current_price
+        }
+    except Exception as e:
+        print(f"Error fetching data for {symbol}: {e}")
+        return None
+
+def track_sp500_stocks():
+    """Track all S&P 500 stocks and find the best buy"""
+    data = []
+    for symbol in sp500_symbols:
+        stock_data = fetch_stock_data(symbol)
+        if stock_data:
+            data.append(stock_data)
+        time.sleep(1)  # Sleep to avoid hitting rate limits
+
+    # Convert to DataFrame for better readability
+    df = pd.DataFrame(data)
+    print(df)
+    
+    if not df.empty:
+        # Find the cheapest stock
+        cheapest_stock = df.loc[df['Price'].idxmin()]
+        cheapest_symbol = cheapest_stock['Symbol']
+        cheapest_price = cheapest_stock['Price']
+        print(f"This is the best and cheapest stock to buy: {cheapest_symbol} ({cheapest_price})")
+
+# Track S&P 500 stocks
+track_sp500_stocks()
