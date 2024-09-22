@@ -1,0 +1,29 @@
+def find_lcm(a, b):
+  """Finds the least common multiple (LCM) of two numbers.
+
+  This function uses a brute-force approach to find the LCM by iterating through all possible multiples of the larger number until a multiple of both numbers is found.
+
+  Args:
+    a: The first number.
+    b: The second number.
+
+  Returns:
+    The LCM of a and b.
+  """
+
+  # Find the larger number
+  larger = max(a, b)
+
+  # Iterate through all multiples of the larger number until a multiple of both is found
+  while True:
+    if larger % a == 0 and larger % b == 0:
+      return larger
+    larger += 1
+
+# Get input from the user
+num1 = int(input("Enter the first number: "))
+num2 = int(input("Enter the second number: "))
+
+# Find and print the LCM
+lcm = find_lcm(num1, num2)
+print("LCM:", lcm)
