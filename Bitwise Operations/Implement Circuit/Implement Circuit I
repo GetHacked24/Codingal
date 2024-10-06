@@ -1,0 +1,16 @@
+def solve_circuit(A, B, C):
+  """Solves the given circuit using bitwise operators."""
+
+  AB = A & B
+  BC = B & C
+  AC = A & C
+
+  Q = AB | BC | AC
+
+  return Q
+
+A = 1
+B = 0
+C = 1
+Q = solve_circuit(A, B, C)
+print("Q =", Q)
