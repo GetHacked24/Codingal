@@ -1,0 +1,31 @@
+class BitChecker:
+    """A class to check if a specific bit of a number is set."""
+
+    def __init__(self, number):
+        """Initializes the BitChecker object with the given number.
+
+        Args:
+            number: The integer to check.
+        """
+        self.number = number
+
+    def is_bit_set(self, n):
+        """Checks if the nth bit of the number is set.
+
+        Args:
+            n: The position of the bit to check (1-based).
+
+        Returns:
+            True if the bit is set, False otherwise.
+        """
+        return (self.number >> (n - 1)) & 1 == 1
+
+# Example usage
+number = 10  # Binary representation: 1010
+checker = BitChecker(number)
+
+# Check if the 2nd bit is set
+if checker.is_bit_set(2):
+    print("The 2nd bit is set.")
+else:
+    print("The 2nd bit is not set.")
