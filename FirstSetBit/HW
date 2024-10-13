@@ -1,0 +1,14 @@
+def find_rightmost_set_bit(number):
+    if number == 0:
+        return 0
+
+    position = 0
+    while number & (number - 1) != 0:
+        number >>= 1
+        position += 1
+
+    return position + 1
+
+number = int(input("Enter a number: "))
+result = find_rightmost_set_bit(number)
+print("The position of the rightmost set bit is:", result)
