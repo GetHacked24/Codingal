@@ -1,0 +1,24 @@
+def TwoOdd(arr):
+    xorof2 = arr[0]
+    for num in arr[1:]:
+        xorof2 ^= num
+
+    set_bit = xorof2 & ~(xorof2-1)
+
+    x = 0
+    y = 0
+    for num in arr:
+        if num & set_bit:
+            x ^= num
+        else:
+            y ^= num
+
+    print("TwoOdd elements are", x, "&", y)
+
+arr = []
+arr_size = int(input("Enter the size of the array"))
+for i in range(arr_size):
+    arr.append(int(input("Enter element")))
+
+print("TwoOdd")
+TwoOdd(arr)
